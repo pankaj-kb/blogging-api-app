@@ -1,36 +1,39 @@
-fetch('https://jsonplaceholder.typicode.com/posts')
+document.addEventListener('DOMContentLoaded', getPosts);
+
+function getPosts() {
+  fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
-
     .then(posts => {
-        // console.log(posts)
+      const postsContainer = document.getElementById('posts');
+      let counter = 0;
 
-        posts.forEach(id => {
+      posts.forEach(post => {
+        if (counter >= 9) {
+          return; // show posts upto 9
+        }
 
-            const blogItem = document.createElement('div')
-            blogItem.classList.add('blog-Item');
-
-            const blogTitle = document.createElement('h1')
-            blogTitle.textContent = id.title;
-
-            const blogText = document.createElement('p')
-            blogText.textContent = id.body;
-
-            blogItem.appendChild(blogTitle)
-            blogItem.appendChild(blogText)
-
-            // const blogList = document.getElementsByClassName('blog-list')
-
-            // blogList.appendChild(blogItem)
-
-            console.log(blogItem)
-
-            document.body.appendChild(blogItem)
-        });
-
+        const postElement = createPostElement(post);
+        postsContainer.appendChild(postElement);
+        counter++;
+      });
     })
-
-
     .catch(error => {
-        // Handle any errors that occur during the request
-        console.log('Error:', error);
+      console.error('Error:', error);
     });
+}
+
+function createPostElement(post) {
+  const postElement = document.createElement('div');
+  postElement.classList.add('post');
+
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = post.title;
+
+  const bodyElement = document.createElement('p');
+  bodyElement.textContent = post.body;
+
+  postElement.appendChild(titleElement);
+  postElement.appendChild(bodyElement);
+
+  return postElement;
+}
