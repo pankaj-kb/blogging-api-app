@@ -16,7 +16,8 @@ main {
 }
 
 #posts {
-  display: grid;
+  display: flex;
+  gap: 10px;
 }
 
 .post {
@@ -24,12 +25,13 @@ main {
   padding: 10px;
   background-color: #f4f4f4;
   border-radius: 5px;
+  gap: 20px;
 }
 
 .post h2 {
-  margin-top: 0;
+  margin-top: 50%;
 }
 
 .post p {
-  margin-bottom: 0;
+  margin-top: 100%;
 }
